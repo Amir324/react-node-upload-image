@@ -11,8 +11,6 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-console.log("!!!!!!!!!!", process.env.FRONT_END);
-
 var corsOptions = {
   origin: process.env.FRONT_END,
 };

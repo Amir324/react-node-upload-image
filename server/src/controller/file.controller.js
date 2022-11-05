@@ -17,15 +17,13 @@ const upload = async (req, res, next) => {
     };
 
     db.images.save(newImage);
-    console.log(db.images.find());
-
     next();
 
     if (req.file == undefined) {
       return res.status(400).send({ message: "Please upload a file!" });
     }
   } catch (err) {
-    console.log("err", err);
+    console.log(err);
 
     if (err.code == "LIMIT_FILE_SIZE") {
       return res.status(500).send({
@@ -40,15 +38,10 @@ const upload = async (req, res, next) => {
 };
 
 const download = async (req, res) => {
-  const pathname = req.pathname;
-  console.log({ pathname });
-  console.log(req.params);
   const name = req.params.name;
   const directoryPath = __basedir + "/uploads/" + name;
   const noImagePath = __basedir + "/assets/images/no_image.png";
-  console.log({ directoryPath });
   const image = db.images.findOne({ name: name });
-  console.log({ image });
   if (!image || dayjs(new Date()).unix() > image.ttl) {
     res.status(404).sendFile(noImagePath);
   }
@@ -74,7 +67,6 @@ const remove = async () => {
 
   const startDeleteFiles = async (files) => {
     for (const file of files) {
-      console.log({ file });
       await deleteImages(directoryPath + file.name);
     }
   };

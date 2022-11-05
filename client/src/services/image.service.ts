@@ -9,7 +9,6 @@ export default class CrudService extends BaseService {
       data,
       config
     );
-    console.log({ response });
     return response;
   }
 
