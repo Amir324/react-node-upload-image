@@ -8,30 +8,25 @@ var db = require('diskdb');
 
 db = db.connect('../../', ['images']);
 
-var article = {
-  title : "diskDB rocks",
-  published : "today",
-  rating : "5 stars"
-}
-console.log(db.images.save(article))
-
-console.log(db.images.find({rating : "5 stars"}))
-
 const upload = async (req, res, next) => {
 
   try {
     await uploadFile(req, res);
 
-    const date = dayjs(new Date()).unix()
-    db[req.file.filename] = {
+    console.log("x-ttl", req.headers["x-ttl"])
 
+    const date = dayjs(new Date()).unix()
+    const newImage = {
+      name: req.file.filename,
+      created_at: date,
+      ttl:  date + (+req.headers["x-ttl"])
     }
+
+    db.images.save(newImage)
+    console.log(db.images.find())
 
     next()
 
-    console.log({db})
-
-    // console.log("req.file", req.file)
 
     if (req.file == undefined) {
       return res.status(400).send({ message: "Please upload a file!" });
@@ -82,19 +77,30 @@ const download = async (req, res) => {
   console.log(req.params)
   const name = req.params.name
   const directoryPath = __basedir + "/uploads/" + name
+  const noImagePath =  __basedir + "/assets/images/no_image.png"
   console.log({directoryPath})
 
-  const imageRecord = db[req.params.name]
+  const image = db.images.findOne({name: name})
 
-  console.log({db})
+  console.log({image})
 
-
-  if(imageRecord){
-  console.log(dayjs(new Date()).unix(), imageRecord.ttl)
-    if(dayjs(new Date()).unix() > imageRecord.ttl){
-      res.status(404)
-    }
+  //
+  // if(imageRecord){
+  // console.log(dayjs(new Date()).unix(), imageRecord.ttl)
+  //   if(dayjs(new Date()).unix() > imageRecord.ttl){
+  //     res.status(404)
+  //   }
+  // }
+    console.log(dayjs(new Date()).unix() > image.ttl)
+    console.log((dayjs(new Date()).unix()))
+    console.log(image.ttl)
+  if(!image || (dayjs(new Date()).unix() > image.ttl) ){
+    console.log("here")
+    res.status(404).sendFile(noImagePath)
   }
+
+
+
 
   // res.status(200).json({path: name});
 
