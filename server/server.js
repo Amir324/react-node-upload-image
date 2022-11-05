@@ -1,7 +1,11 @@
 const cors = require("cors");
 const express = require("express");
 const app = express();
-// require("./src/cron.js");
+const diskdb = require("diskdb");
+const database = diskdb.connect("../../", ["images"]);
+module.exports = { db: database };
+
+require("./src/cron.js");
 
 global.__basedir = __dirname;
 

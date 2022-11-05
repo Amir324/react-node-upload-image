@@ -1,9 +1,7 @@
 const uploadFile = require("../middleware/upload");
 const dayjs = require("dayjs");
+const { db } = require("../../server");
 const fs = require("fs").promises;
-const diskdb = require("diskdb");
-
-db = diskdb.connect("../../", ["images"]);
 
 const upload = async (req, res, next) => {
   try {
@@ -19,7 +17,7 @@ const upload = async (req, res, next) => {
     db.images.save(newImage);
     next();
 
-    if (req.file == undefined) {
+    if (!req.file) {
       return res.status(400).send({ message: "Please upload a file!" });
     }
   } catch (err) {
