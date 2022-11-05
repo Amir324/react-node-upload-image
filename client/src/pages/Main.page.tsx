@@ -24,7 +24,7 @@ enum TTL {
 const MainPage = () => {
   const [image, setImage] = useState<File | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(false);
-  const [ttl, setTtl] = useState<TTL>(TTL.onehour);
+  const [ttl, setTtl] = useState<TTL>(TTL.minute);
   const [link, setLink] = useState<string>("");
   const onChangeHandler = (file: File) => {
     if (!file) {

@@ -15,7 +15,7 @@ const UploadFileButtonComponent = ({ onClick, disabled, loading }: Props) => {
       loading={loading}
       loadingPosition="start"
       startIcon={<SaveIcon />}
-      variant="outlined"
+      variant={"contained"}
       onClick={onClick}
     >
       UPLOAD

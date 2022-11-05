@@ -1,28 +1,28 @@
 import HttpService from "./http.service";
 
 export interface BaseResponse<T> {
-    data: T;
+  data: T;
 }
 
 interface BaseHttpServiceParams {
-    route: string;
-    httpService: HttpService;
+  route: string;
+  httpService: HttpService;
 }
 
 class BaseService {
-    static route: string = "route name not implemented";
+  static route: string = "route name not implemented";
 
-    protected httpService: HttpService;
-    private readonly route: string;
+  protected httpService: HttpService;
+  private readonly route: string;
 
-    constructor({ route, httpService }: BaseHttpServiceParams) {
-        this.route = route;
-        this.httpService = httpService;
-    }
+  constructor({ route, httpService }: BaseHttpServiceParams) {
+    this.route = route;
+    this.httpService = httpService;
+  }
 
-    protected get path() {
-        return `${this.route}`;
-    }
+  protected get path() {
+    return `${this.route}`;
+  }
 }
 
 export default BaseService;
