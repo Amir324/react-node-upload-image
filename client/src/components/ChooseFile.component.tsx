@@ -12,7 +12,7 @@ const ChooseFileComponent = ({ onChange, image }: Props) => {
   const onDrop = useCallback((acceptedFiles: any) => {
     onChange(acceptedFiles?.[0]);
   }, []);
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, isDragAccept } = useDropzone({
     onDrop,
   });
 
@@ -23,10 +23,10 @@ const ChooseFileComponent = ({ onChange, image }: Props) => {
         sx={{
           minHeight: 300,
           padding: "10px",
-          backgroundColor: "lightgrey",
-          borderRadius: "8px",
           display: "flex",
           flexDirection: "column",
+          border: "dotted 8px",
+          borderColor: isDragAccept ? "#2196f3" : "lightgrey",
         }}
       >
         <Box flexGrow={1} sx={{ display: "grid", placeItems: "center" }}>

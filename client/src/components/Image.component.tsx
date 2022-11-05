@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import ImageIcon from "@mui/icons-material/Image";
+import imageIcon from "../images/picture.png";
 
 interface Props {
   image?: File;
@@ -22,7 +22,7 @@ const ImageComponent = ({ image }: Props) => {
         justifyContent={"center"}
         flexDirection={"column"}
       >
-        <ImageIcon fontSize={"large"} />
+        <img height={100} src={imageIcon} />
         <Typography>drag and drop image</Typography>
       </Box>
     );

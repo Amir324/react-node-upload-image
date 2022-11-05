@@ -3,6 +3,7 @@ import {
   Box,
   Container,
   FormControl,
+  inputAdornmentClasses,
   InputLabel,
   MenuItem,
   Select,
@@ -84,13 +85,13 @@ const MainPage = () => {
               <Box width={"100%"} mt={2}>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
-                    Select expiration period (seconds){" "}
+                    Select expiration period{" "}
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={ttl}
-                    label="Select expiration period (seconds)"
+                    label="Select expiration period"
                     onChange={ttlChangeHandler}
                   >
                     <MenuItem value={TTL.minute}>1 minute</MenuItem>
@@ -106,6 +107,7 @@ const MainPage = () => {
                 <UploadFileButtonComponent
                   onClick={uploadHandler}
                   loading={loading}
+                  disabled={!image}
                 />
               </Box>
             </>
