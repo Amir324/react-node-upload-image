@@ -1,17 +1,26 @@
-import React from 'react';
-import {Button} from "@mui/material";
+import React from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
 
 interface Props {
-    onClick: VoidFunction,
-    disabled?: boolean
+  onClick: VoidFunction;
+  disabled?: boolean;
+  loading?: boolean;
 }
 
-const UploadFileButtonComponent = ({onClick, disabled}: Props) => {
-    return (
-        <Button disabled={disabled} onClick={onClick} variant="contained" fullWidth >
-            Upload
-        </Button>
-    );
+const UploadFileButtonComponent = ({ onClick, disabled, loading }: Props) => {
+  return (
+    <LoadingButton
+      fullWidth
+      loading={loading}
+      loadingPosition="start"
+      startIcon={<SaveIcon />}
+      variant="outlined"
+      onClick={onClick}
+    >
+      UPLOAD
+    </LoadingButton>
+  );
 };
 
 export default UploadFileButtonComponent;
